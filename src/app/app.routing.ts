@@ -7,7 +7,7 @@ export const AppRoutes: Routes = [
 
   {
     path: '',
-    redirectTo: 'maps',
+    redirectTo: 'sign-in',
     pathMatch: 'full',
   }, 
 
@@ -28,7 +28,5 @@ export const AppRoutes: Routes = [
     redirectTo: 'dashboard'
   },
 
-
-  
   
 ]

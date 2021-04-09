@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -12,6 +12,8 @@ import { TypographyComponent }      from '../../pages/typography/typography.comp
 import { IconsComponent }           from '../../pages/icons/icons.component';
 import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
+import { SignInComponent }   from '../../pages/sign-in/sign-in.component';
+
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   declarations: [
@@ -31,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    SignInComponent,
 
   ]
 })
