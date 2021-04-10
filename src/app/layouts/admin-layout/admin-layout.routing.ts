@@ -5,9 +5,9 @@ import { UserComponent } from '../../pages/user/user.component';
 import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
-import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { SignInComponent }   from '../../pages/sign-in/sign-in.component';
+import { SignUpComponent }   from '../../pages/sign-up/sign-up.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -16,8 +16,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'table',          component: TableComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'sign-in',           component: SignInComponent },
+    { path: 'sign-up',           component: SignUpComponent },
    
 ];

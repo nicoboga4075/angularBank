@@ -1,45 +1,42 @@
 <div class="authentication" style="height:500px">
-    <div class="sign-in">
-        <div class="row">
+    <div class="sign-up">
+         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
-                    <div class="card-header ">
-                        <h5 class="card-title">Login</h5>
+                    <div class="card-header">
+                        <h5 class="card-title">Sign Up</h5>
                     </div>
-
-                    <div class="card-body ">
-    
-                        <form [formGroup]="form_signin">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email" formControlName="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password" formControlName="password">
-                                    </div>
-                                    <br>
-                                    <button ui-sref="index.main" class="btn btn-info" (click)="login()">Se Connecter</button>
-
-                                    <div class="pull-right  pdd-top-5">
-                                        <a></a>
-                                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="form_signup">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Prénom" formControlName="firstname">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Nom" formControlName="lastname">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control"placeholder="Email" formControlName="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button ui-sref="index.main" class="btn btn-info" (click)="signup()">Créer</button>
+                            </div>
                         </form>
                     </div>
-
                     <div class="card-footer">
-                        <span class="font-size-13 pull-right pdd-top-1">Pas de compte ? <a [routerLink]="['/sign-up']">Créez-en un !</a></span>
+                        <span class="font-size-13 pull-right pdd-top-1">Déja un compte ? <a [routerLink]="['/sign-in']">Cliquez ici !</a></span>
                     </div>
-
                 </div>
-
                 <br>
-
-
                 <div class="card ">
-                    <div class="card-header ">
+                    <div class="card-header">
                         <h5 class="card-title">Présentation</h5>
                     </div>
 
-                    <div class="card-body ">
+                    <div class="card-body">
 
                         <h5>
                             <font face="candara">
@@ -54,3 +51,8 @@ PrixBanque est une nouvelle « fintech » qui cherche à développer des solutio
         </div>
     </div>
 </div>
+
+
+
+
+

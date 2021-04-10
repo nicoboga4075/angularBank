@@ -10,11 +10,10 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { TableComponent }           from '../../pages/table/table.component';
 import { TypographyComponent }      from '../../pages/typography/typography.component';
 import { IconsComponent }           from '../../pages/icons/icons.component';
-import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
 import { SignInComponent }   from '../../pages/sign-in/sign-in.component';
-
-
+import { SignUpComponent }   from '../../pages/sign-up/sign-up.component';
+import { AuthService } from '../../services/auth/auth.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,11 +31,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TableComponent,
     TypographyComponent,
     IconsComponent,
-    MapsComponent,
     NotificationsComponent,
     SignInComponent,
+    SignUpComponent,
 
-  ]
+  ],
+
+  providers:[AuthService]
 })
 
 export class AdminLayoutModule {}
