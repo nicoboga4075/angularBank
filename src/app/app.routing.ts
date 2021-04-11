@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 
@@ -7,7 +8,7 @@ export const AppRoutes: Routes = [
 
   {
     path: '',
-    redirectTo: 'sign-in',
+    redirectTo: 'login',
     pathMatch: 'full',
   }, 
 
@@ -23,10 +24,23 @@ export const AppRoutes: Routes = [
     ]
   },
 
+    {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+            {
+                path: '',
+                loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
+            }
+
+    ]
+  },
+
+
   {
     path: '**',
     redirectTo: 'dashboard'
   },
-
+  
   
 ]
