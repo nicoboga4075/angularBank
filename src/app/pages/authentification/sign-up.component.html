@@ -9,11 +9,11 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
+				<div class="login100-pic">
 					<img src="./assets/img/logo.png" alt="IMG"/>
 					<img src="./assets/img/img-01.png" alt="IMG"/>
 					<br><br>
-                        <h7>
+                        
                             <font face="candara">
 
 PrixBanque est une nouvelle « fintech » 
@@ -21,7 +21,7 @@ PrixBanque est une nouvelle « fintech »
 
 
                              </font>
-                        </h7>
+                        
 				</div>
 				<form [formGroup]="form_signup" class="login100-form">
 
@@ -70,7 +70,7 @@ PrixBanque est une nouvelle « fintech »
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" (click)="register()">
 							Register
 						</button>
 					</div>

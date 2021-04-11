@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
     moduleId: module.id,
@@ -29,9 +30,31 @@ form_signin:FormGroup;
 
         const body=JSON.stringify(formValue);
 
-        console.log(body);
+ 		this.authService.postItem('http://localhost:8083/login',body).subscribe(
+        token=> { 
 
-}
+        Swal.fire( {icon: 'success',
+                    title: 'Bienvenue',
+                    text: 'Connexion réussie',
+  
+                 });
+
+        this.router.navigate(['/dashboard']);
+
+ 		localStorage.setItem('token', token['token']);
+
+        },
+
+        response => {Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: JSON.stringify(response.error.error)});
+         
+        }
+
+        );
+
+    }
 
     
 }

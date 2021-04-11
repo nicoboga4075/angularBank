@@ -9,6 +9,10 @@ import { AuthLayoutRoutes } from './auth-layout.routing';
 import { SignInComponent } from '../../pages/authentification/sign-in.component';
 import { SignUpComponent } from '../../pages/authentification/sign-up.component';
 
+
+import { AuthService  } from '../../services/auth.service';
+
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -24,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
    SignUpComponent,
   ],
 
-  providers:[]
+  providers:[AuthService]
 })
 
 export class AuthLayoutModule {}
