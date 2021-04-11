@@ -23,10 +23,18 @@ PrixBanque est une nouvelle « fintech »
                              </font>
                         
 				</div>
-				<form [formGroup]="form_signup" class="login100-form">
+				<form [formGroup]="form_signup" class="login100-form" (ngSubmit)="register()">
+
+					<div *ngIf="(f.nom.touched && f.nom.invalid) || f.nom.dirty">
+            			<div *ngIf="f.nom.errors?.required" class="text-danger">Last Name is required.</div>
+            			<div *ngIf="f.nom.errors?.minlength" class="text-danger">Minimum length:2</div>
+            			<div *ngIf="f.nom.errors?.pattern && !f.nom.errors?.minlength" class="text-danger">Please provide a valid last name</div>
+         
+        			</div>
+
 
 					<div class="wrap-input100">
-						<input class="input100" type="text" formControlName="nom" placeholder="Last Name">
+						<input class="input100" type="text" formControlName="nom" placeholder="Last Name" required minlength="2">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-id-card-o" aria-hidden="true"></i>
@@ -34,35 +42,61 @@ PrixBanque est une nouvelle « fintech »
 					</div>
 
 
+					<div *ngIf="(f.prenom.touched && f.prenom.invalid) || f.prenom.dirty">
+            			<div *ngIf="f.prenom.errors?.required" class="text-danger">First Name is required.</div>
+            			<div *ngIf="f.prenom.errors?.minlength" class="text-danger">Minimum length:2</div>
+            			<div *ngIf="f.prenom.errors?.pattern && !f.prenom.errors?.minlength" class="text-danger">Please provide a valid first name</div>
+         
+        			</div>
+
 					<div class="wrap-input100">
-						<input class="input100" type="text" formControlName="prenom" placeholder="First Name">
+						<input class="input100" type="text" formControlName="prenom" placeholder="First Name"required minlength="2">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-id-card-o" aria-hidden="true"></i>
 						</span>
 					</div>
 
+					<div *ngIf="(f.email.touched && f.email.invalid) || f.email.dirty">
+            			<div *ngIf="f.email.errors?.required" class="text-danger">Email is required</div>
+            			<div *ngIf="f.email.errors?.pattern" class="text-danger">Please provide a valid email address</div>
+         
+        			</div>
 
 
 					<div class="wrap-input100">
-						<input class="input100" type="email" formControlName="email" placeholder="Email">
+						<input class="input100" type="email" formControlName="email" placeholder="Email" required>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
 					</div>
 
+					<div *ngIf="(f.telephone.touched && f.telephone.invalid) || f.telephone.dirty">
+            			<div *ngIf="f.telephone.errors?.required" class="text-danger">Phone is required</div>         
+        			</div>
+
+        			<div *ngIf="f.telephone.dirty">
+            			<div *ngIf="!valid_phone(f.telephone.value) && !f.telephone.errors?.required" class="text-danger">Please provide a valid phone number (ex:+33784563971)</div>
+         
+        			</div>
 
 					<div class="wrap-input100">
-						<input class="input100" type="tel" formControlName="telephone" placeholder="Phone" >
+						<input class="input100" type="text" formControlName="telephone" placeholder="Phone" required >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-phone" aria-hidden="true"></i>
 						</span>
 					</div>
 
+					<div *ngIf="(f.password.touched && f.password.invalid) || f.password.dirty">
+            			<div *ngIf="f.password.errors?.required" class="text-danger">Password is required</div>
+            			<div *ngIf="f.password.errors?.minlength" class="text-danger">Mininum Length:5</div>
+         
+        			</div>
+
 					<div class="wrap-input100">
-						<input class="input100" type="password" name="password" placeholder="Password">
+						<input class="input100" type="password" formControlName="password" placeholder="Password" required minlength="5">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -70,7 +104,7 @@ PrixBanque est une nouvelle « fintech »
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" (click)="register()">
+						<button class="login100-form-btn" type="submit">
 							Register
 						</button>
 					</div>
