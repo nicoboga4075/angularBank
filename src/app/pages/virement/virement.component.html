@@ -1,0 +1,159 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+       <div class="card">
+
+              <div id="shown" class="card-block" style="display:block">
+
+                <div class="pdd-top-25 inline-block pull-right">
+
+                   <input type="button" id="bt" (click)="add()" class="btn btn-primary" style=" border-color:#2b3170; background-color: #2b3170;  border-radius: 30px;" value="New">
+
+                </div>
+
+                <br>
+
+                <br>
+
+
+                <div *ngIf="!loaded">
+
+                <div class="spinner-grow text-primary" role="status">
+
+                    <span class="sr-only">Loading...</span>
+
+                </div>
+
+                <div class="spinner-grow text-secondary" role="status">
+
+                    <span class="sr-only">Loading...</span>
+
+                </div>
+
+                <div class="spinner-grow text-success" role="status">
+
+                    <span class="sr-only">Loading...</span>
+
+                </div>
+
+                <div class="spinner-grow text-danger" role="status">
+
+                    <span class="sr-only">Loading...</span>
+
+                </div>
+
+
+                </div>
+
+                <br>
+
+                <br>
+
+                 <div class="httpclient-table table-responsive" *ngIf="loaded">
+
+                  <table class="table table-hover table-responsive-md ">
+
+                    <thead>
+
+                    </thead>
+
+                    <tbody>
+
+
+                    </tbody>
+
+                   </table>
+
+                </div>
+
+              </div>
+ 
+              <div class="card-block" id="hidden" style="display:none;background-color: #e6e6e6;border-radius:10px;">
+
+                <div class="pdd-top-25 inline-block pull-right">
+
+                <a (click)="add()" class="btn btn-primary" style=" border-color:#2b3170; background-color: #2b3170;border-radius:30px;" value="Test"><span><i class="fa fa-arrow-circle-left"></i></span></a>
+              
+                </div>
+
+                <h4 style="padding:10px;">Nouveau Virement</h4>
+
+                <hr style="border-top: 1px solid #2b3170;">
+
+                <br>
+
+                <form [formGroup]="virementForm" (ngSubmit)="onSubmitForm()" style="padding:10px;">
+
+                <div>
+              
+                <div class="form-group" style="display: inline-block;vertical-align: middle;float: none; padding-right:30px">
+                
+                  <input type="email" style="width:500px; height:50px" id="email" class="form-control" formControlName="email" placeholder="Email du client payeur" required>
+                  
+
+                </div>
+
+
+                <div *ngIf="(f.email.touched && f.email.invalid) || f.email.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.email.errors?.required" class="text-danger">Email is required</div>
+                  <div *ngIf="f.email.errors?.pattern" class="text-danger">Please provide a valid email address</div>
+                </div>
+
+                </div>
+
+                <br>
+
+                <br>
+
+                <div>
+
+                <div class="form-group" style="display: inline-block;vertical-align: middle; float: none; padding-right:30px">
+                
+                <input id="montant" type="text" style="width:500px; height:50px" class="form-control" formControlName="montant" placeholder="Montant" required>
+
+                </div>
+
+                <div *ngIf="(f.montant.touched && f.montant.invalid) || f.montant.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.montant.errors?.required" class="text-danger">Amount is required</div>
+                  <div *ngIf="f.montant.errors?.pattern" class="text-danger">Please provide a valid amount : X.00</div>
+                </div>
+
+                </div>
+                
+                <br>
+
+                <br>
+
+                <div>
+
+                <div class="form-group" style="display: flex;vertical-align: middle; align-items:center;float: none; padding-right:30px;">
+                
+                <input id="date" type="date" style="width:500px; height:50px" min=" " class="form-control" formControlName="date" placeholder="Date d'échéance" required>
+                <span *ngIf="f.date.touched"class="validity text-danger"></span>
+
+                <style type="text/css">input:invalid+span:after {content: '✖'; padding-left: 30px;} input:valid+span:after {content: '✓'; padding-left: 30px;}</style>
+
+                </div>
+
+                </div>
+
+                <br>
+
+                <br> 
+        
+                <button class="btn btn-primary" style="border-color:#2b3170; background-color: #2b3170;border-radius: 30px;" type="submit">Créer</button>
+ 
+                </form>
+
+         </div>
+
+        </div>
+      
+    </div>
+
+  </div>
+
+</div>

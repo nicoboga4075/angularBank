@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
     selector: 'facture-cmp',
@@ -17,8 +18,6 @@ export class FactureComponent implements OnInit{
 	loaded:boolean;
 
 	factureForm:FormGroup;
-
-	now="2021-04-17";
 
 	constructor(private formBuilder: FormBuilder, private router:Router){}
 
@@ -53,9 +52,10 @@ export class FactureComponent implements OnInit{
     {
 
 		this.factureForm = this.formBuilder.group({
-      email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      montant:['',[Validators.required,Validators.pattern("^([+-]?\\d*\\.?\\d*)$")]],
-      date:null,
+      
+      		email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      		montant:['',[Validators.required,Validators.pattern("^[0-9]+\\.[0-9]{2}$"),this.MoneyValidator]],
+      		date:null,
 
     });
 
@@ -73,6 +73,16 @@ export class FactureComponent implements OnInit{
 
 
     }
+
+    MoneyValidator(control: AbstractControl) {
+ 		 	if (control.value=="0.00") 
+ 		 	{
+    			return {"money":true};
+  			}
+  	
+  			return null;
+
+  	}
 
     
 	add() { 
@@ -97,7 +107,7 @@ export class FactureComponent implements OnInit{
 
 	onSubmitForm()
 
-	{
+	{		
 		if (this.factureForm.invalid) {
             return;
         }

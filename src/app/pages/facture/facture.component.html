@@ -118,7 +118,8 @@
 
                 <div *ngIf="(f.montant.touched && f.montant.invalid) || f.montant.dirty" style="display: inline-block;vertical-align: middle;float: none;">
                   <div *ngIf="f.montant.errors?.required" class="text-danger">Amount is required</div>
-                  <div *ngIf="f.montant.errors?.pattern" class="text-danger">Please provide a valid amount</div>
+                  <div *ngIf="f.montant.errors?.pattern" class="text-danger">Please provide a valid amount : X.00</div>
+                  <div *ngIf=f.montant.errors?.money class="text-danger">Amount must be greater than 0</div>
                 </div>
 
                 </div>
