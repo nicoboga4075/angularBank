@@ -91,12 +91,12 @@ PrixBanque est une nouvelle « fintech »
 
 					<div *ngIf="(f.password.touched && f.password.invalid) || f.password.dirty">
             			<div *ngIf="f.password.errors?.required" class="text-danger">Password is required</div>
-            			<div *ngIf="f.password.errors?.minlength" class="text-danger">Mininum Length:5</div>
+            			<div *ngIf="f.password.errors?.minlength" class="text-danger">Mininum Length:10</div>
          
         			</div>
 
 					<div class="wrap-input100">
-						<input class="input100" type="password" formControlName="password" placeholder="Password" required minlength="5">
+						<input class="input100" type="password" formControlName="password" placeholder="Password" required minlength="10">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>

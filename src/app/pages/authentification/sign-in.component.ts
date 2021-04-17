@@ -19,7 +19,7 @@ form_signin:FormGroup;
 
         this.form_signin= this.fb.group({
             username: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-            password: ['',[Validators.required,Validators.minLength(5)]],
+            password: ['',[Validators.required,Validators.minLength(10)]],
         });
     }
 

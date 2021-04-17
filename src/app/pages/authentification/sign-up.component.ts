@@ -23,7 +23,7 @@ form_signup:FormGroup;
             prenom:['',[Validators.required,Validators.minLength(2),Validators.pattern("[A-Z][a-z]+")]],
             email: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
             telephone:['',[Validators.required]],
-            password:['',[Validators.required,Validators.minLength(5)]]
+            password:['',[Validators.required,Validators.minLength(10)]]
         });
     }
 
