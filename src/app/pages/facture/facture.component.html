@@ -85,7 +85,7 @@
 
                 <br>
 
-                <form [formGroup]="factureForm" (ngSubmit)="onSubmitForm()" style="padding:10px;">
+                <form [formGroup]="factureForm" (ngSubmit)="onSubmitForm()" style="padding:10px;" (change)="submitPossible()">
 
                 <div>
               
@@ -147,7 +147,7 @@
 
                 <br> 
         
-                <button class="btn btn-primary" style="border-color:#2b3170; background-color: #2b3170;border-radius: 30px;" type="submit">Créer</button>
+                <button class="btn btn-primary" id="submit" style="border-color:#2b3170; background-color: #2b3170;border-radius: 30px;" type="submit" disabled>Créer</button>
  
                 </form>
 

@@ -79,6 +79,8 @@ export class FactureComponent implements OnInit{
 
 	date_picker.max=an_max+"-"+mois_max+"-"+jour_max;
 
+	
+
     }
 
     DateValidator(control:AbstractControl)
@@ -109,6 +111,8 @@ export class FactureComponent implements OnInit{
 
   	}
 
+  	
+
     
 	add() { 
 
@@ -128,14 +132,24 @@ export class FactureComponent implements OnInit{
 
 	}
 
+	submitPossible()
+
+	{ let sub_picker=(<HTMLInputElement>document.getElementById('submit'));
+
+
+	if (!this.factureForm.invalid)
+
+	  { sub_picker.disabled=false;}
+
+	else { sub_picker.disabled=true;}
+
+
+	}
 	
 
 	onSubmitForm()
 
 	{		
-		if (this.factureForm.invalid) {
-            return;
-        }
 
         const formValue = this.factureForm.value;
 

@@ -242,15 +242,28 @@ export class VirementComponent implements OnInit{
 	}
 
 
+	submitPossible()
+
+	{ let sub_picker=(<HTMLInputElement>document.getElementById('submit'));
+	  let vir_picker=(<HTMLInputElement>document.getElementById('virement'));
+
+
+	if (!this.virementForm.invalid || (vir_picker.value=="immediat" && this.virementForm.controls.email.status=="VALID" && this.virementForm.controls.montant.status=="VALID" && this.virementForm.controls.question.status=="VALID" && this.virementForm.controls.response.status=="VALID"))
+
+	  { sub_picker.disabled=false;}
+
+	else { sub_picker.disabled=true;}
+
+
+	}
+
+
 	onSubmitForm()
 
 	{	
-		
+		if (!this.virementForm.invalid)
 
-
-		if (this.virementForm.invalid) {
-            return;
-        }
+		{ return ;}
 		
         const formValue = this.virementForm.value;
         
