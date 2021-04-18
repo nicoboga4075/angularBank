@@ -117,9 +117,11 @@
                 </div>
 
                 <div *ngIf="(f.montant.touched && f.montant.invalid) || f.montant.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+
                   <div *ngIf="f.montant.errors?.required" class="text-danger">Amount is required</div>
                   <div *ngIf="f.montant.errors?.pattern" class="text-danger">Please provide a valid amount : X.00</div>
-                  <div *ngIf=f.montant.errors?.money class="text-danger">Amount must be greater than 0</div>
+                  <div *ngIf=f.montant.errors?.money class="text-danger">Amount must be greater than 0.00</div>
+
                 </div>
 
                 </div>
@@ -132,7 +134,7 @@
 
                 <div class="form-group" style="display: flex;vertical-align: middle; align-items:center;float: none; padding-right:30px;">
                 
-                <input id="date" type="date" style="width:500px; height:50px" min=" " class="form-control" formControlName="date" placeholder="Date d'échéance" required>
+                <input id="date" type="date" style="width:500px; height:50px" min="" max="" class="form-control" formControlName="date" required>
                 <span *ngIf="f.date.touched"class="validity text-danger"></span>
 
                 <style type="text/css">input:invalid+span:after {content: '✖'; padding-left: 30px;} input:valid+span:after {content: '✓'; padding-left: 30px;}</style>

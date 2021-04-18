@@ -88,14 +88,34 @@
                 <form [formGroup]="virementForm" (ngSubmit)="onSubmitForm()" style="padding:10px;">
 
                 <div>
-              
+
+                <div class="form-group" style="display: inline-block;vertical-align: middle;float: none; padding-right:30px">
+
+                <select class="form-control" (change)="setDate()" formControlName="virement" id="virement" style="width:500px; height:50px" required>
+                  <option value="" disabled>-- Type de Virement --</option>
+                  <option value="immediat">Immédiat</option>
+                  <option value="programme">Programmé</option>
+                </select>
+
+                </div>
+
+                 <div *ngIf="(f.virement.touched && f.virement.invalid) || f.virement.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.virement.errors?.empty" class="text-danger">Please select an option</div>
+                </div>
+
+                </div>
+
+                <br>
+
+                <br>
+
+                <div>
+             
                 <div class="form-group" style="display: inline-block;vertical-align: middle;float: none; padding-right:30px">
                 
                   <input type="email" style="width:500px; height:50px" id="email" class="form-control" formControlName="email" placeholder="Email du client payeur" required>
                   
-
                 </div>
-
 
                 <div *ngIf="(f.email.touched && f.email.invalid) || f.email.dirty" style="display: inline-block;vertical-align: middle;float: none;">
                   <div *ngIf="f.email.errors?.required" class="text-danger">Email is required</div>
@@ -110,7 +130,7 @@
 
                 <div>
 
-                <div class="form-group" style="display: inline-block;vertical-align: middle; float: none; padding-right:30px">
+                <div class="form-group" style="display:inline-block;vertical-align: middle; float: none; padding-right:30px">
                 
                 <input id="montant" type="text" style="width:500px; height:50px" class="form-control" formControlName="montant" placeholder="Montant" required>
 
@@ -119,6 +139,7 @@
                 <div *ngIf="(f.montant.touched && f.montant.invalid) || f.montant.dirty" style="display: inline-block;vertical-align: middle;float: none;">
                   <div *ngIf="f.montant.errors?.required" class="text-danger">Amount is required</div>
                   <div *ngIf="f.montant.errors?.pattern" class="text-danger">Please provide a valid amount : X.00</div>
+                  <div *ngIf=f.montant.errors?.money class="text-danger">Amount must be greater than 0.00</div>
                 </div>
 
                 </div>
@@ -129,9 +150,48 @@
 
                 <div>
 
-                <div class="form-group" style="display: flex;vertical-align: middle; align-items:center;float: none; padding-right:30px;">
+                <div class="form-group" style="display: inline-block;vertical-align: middle; float: none; padding-right:30px">
                 
-                <input id="date" type="date" style="width:500px; height:50px" min=" " class="form-control" formControlName="date" placeholder="Date d'échéance" required>
+                <input id="question" type="text" style="width:500px; height:50px" minlength="10" class="form-control" formControlName="question" placeholder="Question" required>
+
+                </div>
+
+                <div *ngIf="(f.question.touched && f.question.invalid) || f.question.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.question.errors?.nomark" class="text-danger">Question begins with an upper case and ends with ?</div>
+                  <div *ngIf="f.question.errors?.minlength" class="text-danger">Minimum length : 10</div>
+                
+                </div>
+
+                </div>
+
+                <br>
+
+                <br>
+
+                <div>
+
+                <div class="form-group" style="display: inline-block;vertical-align: middle; float: none; padding-right:30px">
+                
+                <input id="response" type="text" style="width:500px; height:50px" minlength="5" class="form-control" formControlName="response" placeholder="Réponse" required>
+
+                </div>
+
+                <div *ngIf="(f.response.touched && f.response.invalid) || f.response.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.response.errors?.required" class="text-danger">Response is required</div>
+                  <div *ngIf="f.response.errors?.minlength" class="text-danger">Minimum length : 5</div>
+                </div>
+
+                </div>
+
+                <br>
+
+                <br>
+
+                <div>
+
+                <div id="hidden2" class="form-group" style="display:none;vertical-align: middle; align-items:center;float: none; padding-right:30px;">
+                
+                <input id="date" type="date" style="width:500px; height:50px" min="" max="" class="form-control" formControlName="date" >
                 <span *ngIf="f.date.touched"class="validity text-danger"></span>
 
                 <style type="text/css">input:invalid+span:after {content: '✖'; padding-left: 30px;} input:valid+span:after {content: '✓'; padding-left: 30px;}</style>

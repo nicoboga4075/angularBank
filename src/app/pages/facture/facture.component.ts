@@ -45,8 +45,6 @@ export class FactureComponent implements OnInit{
   	}
 
 
-
-
     initForm()
 
     {
@@ -55,7 +53,7 @@ export class FactureComponent implements OnInit{
       
       		email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       		montant:['',[Validators.required,Validators.pattern("^[0-9]+\\.[0-9]{2}$"),this.MoneyValidator]],
-      		date:null,
+      		date:[null,[this.DateValidator]],
 
     });
 
@@ -66,11 +64,38 @@ export class FactureComponent implements OnInit{
 	var mois=(maintenant.getMonth()+1).toString();
 	if (mois.length==1)
 		{mois="0"+mois.toString();}
-	
 	var an=maintenant.getFullYear().toString();
 
 	date_picker.min=an+"-"+mois+"-"+jour;
 
+	var max=(new Date(date_picker.min)).getTime()+3*2629800000;
+
+	var date_max=new Date(max);
+	var jour_max=(date_max.getDate()).toString();
+	var mois_max=(date_max.getMonth()+1).toString();
+	if (mois_max.length==1)
+		{ mois_max="0"+mois_max.toString();	}
+	var an_max=date_max.getFullYear().toString();
+
+	date_picker.max=an_max+"-"+mois_max+"-"+jour_max;
+
+    }
+
+    DateValidator(control:AbstractControl)
+
+    {  let date_picker=(<HTMLInputElement>document.getElementById('date'));
+
+    	var date1=new Date(date_picker.min);
+
+    	var date2=new Date(control.value);
+
+    	var date3=new Date(date_picker.max);
+
+    	if ((date1.getTime()>date2.getTime())||(date2.getTime()>date3.getTime()))
+
+    	{ return {"small":true};}
+
+    	return null;
 
     }
 
@@ -91,8 +116,6 @@ export class FactureComponent implements OnInit{
   		var div_h = document.getElementById("hidden");
   		var div_s = document.getElementById("shown");
 
-
-
   		if (div_h.style.display === "none") {
     		div_h.style.display = "block";
     		div_s.style.display = "none";
@@ -105,6 +128,8 @@ export class FactureComponent implements OnInit{
 
 	}
 
+	
+
 	onSubmitForm()
 
 	{		
@@ -114,10 +139,10 @@ export class FactureComponent implements OnInit{
 
         const formValue = this.factureForm.value;
 
+
         formValue['montant']=Number.parseFloat(formValue['montant']);
         formValue['date']=new Date(formValue['date']);
 
-        console.log(formValue);
 
         const body=JSON.stringify(formValue);
 
