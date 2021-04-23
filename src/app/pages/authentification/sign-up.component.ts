@@ -57,9 +57,32 @@ export class SignUpComponent  {
 
         const body=JSON.stringify(formValue);
 
-  		console.log(body);
+  		this.authService.postItem('http://localhost:8081/create',body).subscribe(
+        val => {
+             Swal.fire( {icon: 'success',
+                    title: 'Good job !',
+                    text: 'Check your email box !',
+                    showConfirmButton: false
+  
+                 });
+
+        function GoRegister(){ this.router.navigate(['/register']);}
+
+        setTimeout(GoRegister, 2000);
+
+
+        },response => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: JSON.stringify(response.error.error)});
+         
+        });
+  
 	}
 }
+
 
     
 

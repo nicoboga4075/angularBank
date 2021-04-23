@@ -13,6 +13,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 export class SignInComponent  {
 
+	id=1;
+
 	form_signin:FormGroup;
 
     constructor(private fb:FormBuilder, private authService:AuthService, private router: Router) {
@@ -43,6 +45,8 @@ export class SignInComponent  {
         const body=JSON.stringify(formValue);
 
         console.log(body);
+
+        this.router.navigate(['dashboard',this.id]);
 
     }
 
