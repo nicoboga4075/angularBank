@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit{
     solde:number;
     loaded:boolean;
 
-
     constructor(private fb:FormBuilder,private route: ActivatedRoute, private dashboardService:DashboardService, private router: Router) {}
 
     ngOnInit(){
@@ -26,17 +25,15 @@ export class DashboardComponent implements OnInit{
 
         this.id = +params.get('id');
 
-         this.loaded = false;
+        this.loaded = false;
         this.dashboardService.getItem('http://localhost:8081/solde/'+this.id).subscribe(
         solde=> {
          // this.solde =...;
-        });
          this.loaded = true;
-        }, response=>{ });}
-
-    }); 
-
+        }, response=>{ });
    
+    });
+
     }
 
      

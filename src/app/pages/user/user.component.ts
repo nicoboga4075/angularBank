@@ -19,7 +19,10 @@ export class UserComponent implements OnInit{
 
 	id:number;
 
+	loaded:boolean;
+
 	form_profile:FormGroup;
+
 
     constructor(private fb:FormBuilder, private userService:UserService, private router: Router, private route: ActivatedRoute) {
 
@@ -51,6 +54,17 @@ export class UserComponent implements OnInit{
 
 
     ngOnInit(){
+
+    this.route.paramMap.subscribe(params => {
+
+        this.id = +params.get('id');
+        this.loaded = false;
+    	this.userService.getItem('http://localhost:8081/compte/'+this.id)
+      .subscribe(
+        item => {
+        //  this.item = ...;
+
+        }, response=>{ });});
 
 
     }
