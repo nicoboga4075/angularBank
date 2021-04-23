@@ -14,12 +14,12 @@ export class ReleveComponent implements OnInit{
 
 	loaded:boolean;
 
-	releventForm:FormGroup;
-
-
-    ngOnInit(){}
-    
-
 	constructor(private formBuilder: FormBuilder, private releveService : ReleveService,private router:Router){}
 
+    ngOnInit(){
+
+    this.loaded=true;
+
+    }
+    
 	}

@@ -19,6 +19,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+   getItem(url: string) {
+    return this.http.get(url, httpOptions);
+  }
+
   postItem(url:string,body:string){
     return this.http.post(url,body,httpOptions);
   }

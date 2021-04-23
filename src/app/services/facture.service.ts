@@ -13,8 +13,13 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
+
 export class FactureService {
 
   constructor(private http: HttpClient) { } 
+
+  getItem(url: string) {
+    return this.http.get(url, httpOptions);
+  }
 
 }
