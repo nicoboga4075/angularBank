@@ -11,6 +11,12 @@ import { ReleveComponent } from '../../pages/releve/releve.component';
 import { FactureComponent } from '../../pages/facture/facture.component';
 import { VirementComponent } from '../../pages/virement/virement.component';
 
+import { DashboardService} from '../../services/dashboard.service';
+import { UserService} from '../../services/user.service';
+import { ReleveService} from '../../services/releve.service';
+import { FactureService} from '../../services/facture.service';
+import { VirementService} from '../../services/virement.service';
+
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,7 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
   ],
 
-  providers:[]
+  providers:[DashboardService,UserService,ReleveService,FactureService,VirementService]
 })
 
 export class AdminLayoutModule {}

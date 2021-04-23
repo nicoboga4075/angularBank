@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { isPossiblePhoneNumber, isValidPhoneNumber, parsePhoneNumber,formatPhoneNumberIntl} from 'react-phone-number-input';
 import { ActivatedRoute} from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'user-cmp',
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit{
 
 	form_profile:FormGroup;
 
-    constructor(private fb:FormBuilder, private router: Router, private route: ActivatedRoute) {
+    constructor(private fb:FormBuilder, private userService:UserService, private router: Router, private route: ActivatedRoute) {
 
      this.form_profile= this.fb.group({
           	prenom: '',

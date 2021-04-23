@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { FactureService  } from '../../services/facture.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class FactureComponent implements OnInit{
 
 	factureForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private router:Router){}
+	constructor(private formBuilder: FormBuilder, private factureService : FactureService, private router:Router){}
 
 
     ngOnInit(){

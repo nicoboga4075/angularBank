@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { VirementService  } from '../../services/virement.service';
 
 @Component({
     selector: 'virement-cmp',
@@ -18,7 +19,7 @@ export class VirementComponent implements OnInit{
 
 	virementForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private router:Router){}
+	constructor(private formBuilder: FormBuilder, private virementService : VirementService,private router:Router){}
 
 
     ngOnInit(){

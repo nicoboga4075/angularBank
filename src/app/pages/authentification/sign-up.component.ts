@@ -14,7 +14,7 @@ import { isPossiblePhoneNumber, isValidPhoneNumber, parsePhoneNumber,formatPhone
 
 export class SignUpComponent  {
 
-form_signup:FormGroup;
+	form_signup:FormGroup;
 
     constructor(private fb:FormBuilder, private authService:AuthService, private router: Router) {
 

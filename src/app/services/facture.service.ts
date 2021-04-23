@@ -15,7 +15,6 @@ const httpOptions = {
 })
 export class FactureService {
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) { } 
 
 }
