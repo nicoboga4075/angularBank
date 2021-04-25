@@ -10,7 +10,7 @@ import { SignInComponent } from '../../pages/authentification/sign-in.component'
 import { SignUpComponent } from '../../pages/authentification/sign-up.component';
 
 
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
    SignUpComponent,
   ],
 
-  providers:[AuthService]
+  providers:[UserService]
 })
 
 export class AuthLayoutModule {}

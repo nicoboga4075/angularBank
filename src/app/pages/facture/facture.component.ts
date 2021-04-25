@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FactureService  } from '../../services/facture.service';
 
@@ -21,37 +21,14 @@ export class FactureComponent implements OnInit{
 
 	factureForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private route:ActivatedRoute, private factureService : FactureService, private router:Router){}
+	constructor(private formBuilder: FormBuilder,  private userService : UserService, private router:Router){}
 
 
     ngOnInit(){
 
-    this.route.paramMap.subscribe(params => {
-
-        this.id = +params.get('id');
-
-        this.initForm();
-
-        this.loaded = false;
-        
-        this.factureService.getItem('http://localhost:8888/BILLING-SERVICE/full/'+this.id).subscribe(
-         (response) => { 
-
-         console.log(response);
-
-         this.loaded=true;
-            
-
-        },(error) => {
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.status.toString()+" : "+error.statusText});
-        });
+   
 
 
-    });
     }
 
 
@@ -180,25 +157,11 @@ export class FactureComponent implements OnInit{
     	formData.append("date", this.factureForm.get('date').value);
 
 
-    	this.factureService.postItem('http://localhost:8888/BILLING-SERVICE/create',formData).subscribe(
 
-        (response) => {
-             Swal.fire( {icon: 'success',
-                    title: 'Good job !',
-                    text: 'Facture created !',
-                    showConfirmButton: false
-  
-                 });
-        
-           console.log(response);
+		
 
-        },(error) => {
 
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.status.toString()+" : "+error.statusText});
-        });
+    
 
 	}
       

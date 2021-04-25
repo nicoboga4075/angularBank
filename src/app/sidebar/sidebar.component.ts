@@ -14,7 +14,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/virement', title: 'Virements', icon:'nc-share-66', class: '' },
     { path: '/facture', title: 'Factures', icon:'nc-money-coins',  class: '' },
     { path: '/releve', title: 'Relevés', icon:'nc-book-bookmark', class: '' },
-    { path: '/user', title: 'Profil', icon:'nc-single-02',  class: '' },
     
 ];
 

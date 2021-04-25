@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { VirementService  } from '../../services/virement.service';
 
@@ -13,13 +14,12 @@ import { VirementService  } from '../../services/virement.service';
 export class VirementComponent implements OnInit{
 
 
- 	items:any;
 
 	loaded:boolean;
 
 	virementForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private virementService : VirementService,private router:Router){}
+	constructor(private formBuilder: FormBuilder, private userService : UserService,private router:Router){}
 
 
     ngOnInit(){
@@ -280,28 +280,6 @@ export class VirementComponent implements OnInit{
     	formData.append("response", this.virementForm.get('response').value);
     	formData.append("montant", this.virementForm.get('montant').value);
     	formData.append("date", this.virementForm.get('date').value);
-
-
-
-  		this.virementService.postItem('http://localhost:8888/COMPTE-SERVICE/virement',formData).subscribe(
-
-        (response) => {
-             Swal.fire( {icon: 'success',
-                    title: 'Good job !',
-                    text: 'Virement Done',
-                    showConfirmButton: false
-  
-                 });
-
-
-        },(error) => {
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.status.toString()+" : "+error.statusText});
-        });
-
 
 
 	}

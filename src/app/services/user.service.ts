@@ -2,18 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent, HttpHeaders} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
-const httpOptions = {
-  headers: new HttpHeaders(
-    {
-      'Content-Type': 'application/json',
-       //  'Authorization':localStorage.getItem('token'),
-      
-    }
-  )
-};
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -23,8 +11,6 @@ export class UserService {
   //url du backend
   host:string="http://localhost:8888/SECURITY-SERVICE";
  
-
-  
 
   //savoir si le user est authentifié
   isAuthenticated:boolean=false;
