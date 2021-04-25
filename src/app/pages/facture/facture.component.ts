@@ -15,21 +15,58 @@ import { FactureService  } from '../../services/facture.service';
 
 export class FactureComponent implements OnInit{
 
-	id:number;
-
 	loaded:boolean;
 
 	factureForm:FormGroup;
+	factures:any;
+	buttonChange="Factures Créé"
+	//facturesEnvoye:any;
 
-	constructor(private formBuilder: FormBuilder,  private userService : UserService, private router:Router){}
+	constructor(private formBuilder: FormBuilder,  private billService :FactureService, private router:Router){}
 
 
     ngOnInit(){
-
-   
-
-
+		this.loaded=false;
+		this.loadCreatedBills();
     }
+
+	loadCreatedBills(){
+		this.billService.getcreatedBills().subscribe(resp=>{   
+            this.factures=resp;
+			this.buttonChange="Factures Reçu"
+			this.loaded=true;
+        },error=>{
+            
+        });
+	}
+
+	loadReceavedBills(){
+		this.billService.getReceivedBills().subscribe(resp=>{   
+            this.factures=resp;
+			this.buttonChange="Factures Créé"
+            this.loaded=true;
+        },error=>{
+            
+        });
+	}
+
+	supprimerBill(id){
+		this.billService.supprimer(id).subscribe(resp=>{   
+            this.factures=resp;
+			this.loadCreatedBills();
+        },error=>{
+            
+        });
+	}
+
+	payBill(id){
+		this.billService.PayBill(id).subscribe(resp=>{   
+            this.factures=resp;
+			this.loadReceavedBills();
+        },error=>{
+            
+        });
+	}
 
 
 
@@ -156,7 +193,16 @@ export class FactureComponent implements OnInit{
     	formData.append("montant", this.factureForm.get('montant').value);
     	formData.append("date", this.factureForm.get('date').value);
 
-
+		this.billService.create(formData).subscribe(resp=>{
+            
+            this.loadCreatedBills();
+            
+        },error=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.status.toString()+" : "+error.statusText});
+        });
 
 		
 

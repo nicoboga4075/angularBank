@@ -15,29 +15,24 @@ export class VirementComponent implements OnInit{
 
 
 
-	loaded:boolean;
+	
+
+	response:any;
 
 	virementForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private userService : UserService,private router:Router){}
+	constructor(private formBuilder: FormBuilder, private compteService:VirementService, private userService : UserService,private router:Router){}
 
 
     ngOnInit(){
 
-    this.getVirements();
+    
     this.initForm();
 
     }
 
 
-    getVirements(){
-
-   // this.loaded=false;
-
-    this.loaded=true;
-
-
-    }
+    
 
     get f()
 
@@ -281,6 +276,16 @@ export class VirementComponent implements OnInit{
     	formData.append("montant", this.virementForm.get('montant').value);
     	formData.append("date", this.virementForm.get('date').value);
 
+		this.compteService.virement(formData).subscribe(resp=>{
+            this.response=resp;
+            this.router.navigate(["/dashboard"]);
+            
+        },error=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.status.toString()+" : "+error.statusText});
+        });
 
 	}
       
