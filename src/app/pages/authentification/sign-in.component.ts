@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
@@ -17,7 +17,7 @@ export class SignInComponent  {
 
 	form_signin:FormGroup;
 
-    constructor(private fb:FormBuilder, private authService:AuthService, private router: Router) {
+    constructor(private fb:FormBuilder, private userService:UserService, private router: Router) {
 
         this.form_signin= this.fb.group({
             username: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -32,7 +32,6 @@ export class SignInComponent  {
     return this.form_signin.controls;
   	}
 
-
     login() {
 
 
@@ -44,27 +43,20 @@ export class SignInComponent  {
     	formData.append("username", this.form_signin.get('username').value);
     	formData.append("password", this.form_signin.get('password').value);
 
-
-       	this.authService.postItem('http://localhost:8888/SECURITY-SERVICE/register',formData).subscribe(
-
-        (response) => {
-             Swal.fire( {icon: 'success',
-                    title: 'Good job !',
-                    text: 'You are logged in !',
-                    showConfirmButton: false
-  
-                 });
-        
-           // localStorage.setItem('token', ...]);
-
-        },(error) => {
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.status.toString()+" : "+error.statusText});
+        this.userService.login(formData).subscribe(resp=>{
+            let jwtToken = resp.headers.get("Authorization");
+            console.log(jwtToken);
+            this.userService.saveToken(jwtToken);
+            this.userService.isAuthenticated=true;
+            this.router.navigate(["/dashboard"]);
+            
+        },error=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.status.toString()+" : "+error.statusText});
         });
-
+  
     }
 
     

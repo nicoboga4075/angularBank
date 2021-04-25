@@ -26,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
 
-    id=1;
+    
 
     public menuItems: any[];
     ngOnInit() {
