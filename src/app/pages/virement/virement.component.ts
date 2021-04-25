@@ -13,18 +13,30 @@ import { VirementService  } from '../../services/virement.service';
 
 export class VirementComponent implements OnInit{
 
-
-
-	
+	compte:any;
 
 	response:any;
 
 	virementForm:FormGroup;
 
+	loaded:boolean;
+
 	constructor(private formBuilder: FormBuilder, private compteService:VirementService, private userService : UserService,private router:Router){}
 
 
     ngOnInit(){
+
+	this.loaded=false;
+
+	this.compteService.getCompte().subscribe(
+
+		resp=>{   
+			this.compte=resp;
+            this.loaded=true;
+        },error=>{
+
+            
+        });
 
     
     this.initForm();
@@ -92,10 +104,8 @@ export class VirementComponent implements OnInit{
 
 	date_picker.max=an_max+"-"+mois_max+"-"+jour_max;
 
-   
 
     }
-
 
 
     MoneyValidator(control:AbstractControl) {

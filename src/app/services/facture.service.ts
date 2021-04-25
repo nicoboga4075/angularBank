@@ -22,10 +22,8 @@ export class FactureService {
       headers:headers     
     });
 
-
   
   }
-
     
    supprimer(id){
 
