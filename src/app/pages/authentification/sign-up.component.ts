@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { isPossiblePhoneNumber, isValidPhoneNumber, parsePhoneNumber,formatPhoneNumberIntl} from 'react-phone-number-input';
 
@@ -16,7 +16,7 @@ export class SignUpComponent  {
 
 	form_signup:FormGroup;
 
-    constructor(private fb:FormBuilder, private authService:AuthService, private router: Router) {
+    constructor(private fb:FormBuilder, private userService:UserService, private router: Router) {
 
         this.form_signup= this.fb.group({
             nom:['',[Validators.required,Validators.minLength(2),Validators.pattern("[A-Z][a-z]+")]],
@@ -60,15 +60,15 @@ export class SignUpComponent  {
     	formData.append("telephone", this.form_signup.get('telephone').value);
     	formData.append("password", this.form_signup.get('password').value);
 
-  		this.authService.postItem('http://localhost:8888/SECURITY-SERVICE/register',formData).subscribe(
+  		this.userService.register(formData).subscribe(
 
-        (response) => {
-             Swal.fire( {icon: 'success',
-                    title: 'Good job !',
-                    text: 'Check your email box !',
-                    showConfirmButton: false
+                (response) => {
+                    Swal.fire( {icon: 'success',
+                            title: 'Good job !',
+                            text: 'Check your email box !',
+                            showConfirmButton: false
   
-                 });
+        });
 
            
 

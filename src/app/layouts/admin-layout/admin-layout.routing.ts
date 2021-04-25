@@ -9,10 +9,10 @@ import { VirementComponent } from '../../pages/virement/virement.component';
 
 export const AdminLayoutRoutes: Routes = [
 
-    { path: 'dashboard/:id', component: DashboardComponent },
-    { path: 'user/:id', component: UserComponent },
-    { path:'virement/:id', component: VirementComponent},
-    { path:'facture/:id', component:FactureComponent},
-    { path:'releve/:id', component:ReleveComponent},
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'user', component: UserComponent },
+    { path:'virement', component: VirementComponent},
+    { path:'facture', component:FactureComponent},
+    { path:'releve', component:ReleveComponent},
    
 ];
