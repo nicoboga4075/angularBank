@@ -5,6 +5,7 @@ const httpOptions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
+       //  'Authorization':localStorage.getItem('token'),
       
     }
   )
@@ -21,5 +22,10 @@ export class FactureService {
   getItem(url: string) {
     return this.http.get(url, httpOptions);
   }
+
+  postItem(url:string,formData:FormData){
+    return this.http.post(url,formData,httpOptions);
+  }
+
 
 }

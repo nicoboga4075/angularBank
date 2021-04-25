@@ -23,8 +23,8 @@ export class AuthService {
     return this.http.get(url, httpOptions);
   }
 
-  postItem(url:string,body:string){
-    return this.http.post(url,body,httpOptions);
+  postItem(url:string,formData:FormData){
+    return this.http.post(url,formData,httpOptions);
   }
 
 }

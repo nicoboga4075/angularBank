@@ -72,7 +72,7 @@ export class VirementComponent implements OnInit{
 
 
 		this.virementForm = this.formBuilder.group({
-	  virement:['',[this.OneValidator]],
+	  type:['',[this.OneValidator]],
       email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       question:['',[this.QuestionValidator, Validators.minLength(10)]],
       response:['',[Validators.required,Validators.minLength(5)]],
@@ -144,7 +144,7 @@ export class VirementComponent implements OnInit{
   	DateValidator(control:AbstractControl)
 
   	{ 	
-  		let vir_picker=(<HTMLInputElement>document.getElementById('virement'));
+  		let vir_picker=(<HTMLInputElement>document.getElementById('type'));
   		
 
   		if (vir_picker.value!="immediat")
@@ -209,7 +209,7 @@ export class VirementComponent implements OnInit{
 
 	var div_h2 = document.getElementById("hidden2");
 
-	if (this.virementForm.value['virement']=="programme")
+	if (this.virementForm.value['type']=="programme")
 
 	{	
 		var maintenant=new Date();
@@ -229,7 +229,7 @@ export class VirementComponent implements OnInit{
 
 	}
 
-	if (this.virementForm.value['virement']=="immediat")
+	if (this.virementForm.value['type']=="immediat")
 
 	{ 
 
@@ -246,7 +246,7 @@ export class VirementComponent implements OnInit{
 	submitPossible()
 
 	{ let sub_picker=(<HTMLInputElement>document.getElementById('submit'));
-	  let vir_picker=(<HTMLInputElement>document.getElementById('virement'));
+	  let vir_picker=(<HTMLInputElement>document.getElementById('type'));
 
 
 	if (!this.virementForm.invalid || (vir_picker.value=="immediat" && this.virementForm.controls.email.status=="VALID" && this.virementForm.controls.montant.status=="VALID" && this.virementForm.controls.question.status=="VALID" && this.virementForm.controls.response.status=="VALID"))
@@ -272,9 +272,37 @@ export class VirementComponent implements OnInit{
         formValue['montant']=Number.parseFloat(formValue['montant']);
         formValue['date']=new Date(formValue['date']);
 
-        const body=JSON.stringify(formValue);
 
-  		console.log(body);
+        var formData: any = new FormData();
+    	formData.append("type", this.virementForm.get('type').value);
+    	formData.append("email", this.virementForm.get('email').value);
+    	formData.append("question", this.virementForm.get('question').value);
+    	formData.append("response", this.virementForm.get('response').value);
+    	formData.append("montant", this.virementForm.get('montant').value);
+    	formData.append("date", this.virementForm.get('date').value);
+
+
+
+  		this.virementService.postItem('http://localhost:8888/COMPTE-SERVICE/virement',formData).subscribe(
+
+        (response) => {
+             Swal.fire( {icon: 'success',
+                    title: 'Good job !',
+                    text: 'Virement Done',
+                    showConfirmButton: false
+  
+                 });
+
+
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
+
+
 
 	}
       

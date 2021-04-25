@@ -59,13 +59,18 @@ export class UserComponent implements OnInit{
 
         this.id = +params.get('id');
         this.loaded = false;
-    	this.userService.getItem('http://localhost:8081/compte/'+this.id)
+    	this.userService.getItem('http://localhost:8888/COMPTE-SERVICE/compte/'+this.id)
       .subscribe(
-        item => {
-        //  this.item = ...;
+         (response) => {
+            console.log(response);
 
-        }, response=>{ });});
+        },(error) => {
 
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
 
-    }
+    });}
 }

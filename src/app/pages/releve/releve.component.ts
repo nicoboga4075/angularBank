@@ -21,20 +21,27 @@ export class ReleveComponent implements OnInit{
 
     ngOnInit(){
 
-   	this.route.paramMap.subscribe(params => {
+
+    this.route.paramMap.subscribe(params => {
 
         this.id = +params.get('id');
+
         this.loaded = false;
-    	this.releveService.getItem('http://localhost:8081/relever/'+this.id)
-      .subscribe(
-        item => {
-        //  this.item = ...;
-        this.loaded=true;
+        this.releveService.getItem('http://localhost:8888/COMPTE-SERVICE/relever/'+this.id).subscribe(
+         (response) => { console.log(response);
+            
 
-        }, response=>{ });
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
 
 
-    });}
-    
+    });
 
-	}
+    }
+
+}

@@ -91,7 +91,7 @@
 
                 <div class="form-group" style="display: inline-block;vertical-align: middle;float: none; padding-right:30px">
 
-                <select class="form-control" (change)="setDate()" formControlName="virement" id="virement" style="width:500px; height:50px" required>
+                <select class="form-control" (change)="setDate()" formControlName="type" id="type" style="width:500px; height:50px" required>
                   <option value="" disabled>-- Type de Virement --</option>
                   <option value="immediat">Immédiat</option>
                   <option value="programme">Programmé</option>
@@ -99,8 +99,8 @@
 
                 </div>
 
-                 <div *ngIf="(f.virement.touched && f.virement.invalid) || f.virement.dirty" style="display: inline-block;vertical-align: middle;float: none;">
-                  <div *ngIf="f.virement.errors?.empty" class="text-danger">Please select an option</div>
+                 <div *ngIf="(f.type.touched && f.type.invalid) || f.type.dirty" style="display: inline-block;vertical-align: middle;float: none;">
+                  <div *ngIf="f.type.errors?.empty" class="text-danger">Please select an option</div>
                 </div>
 
                 </div>

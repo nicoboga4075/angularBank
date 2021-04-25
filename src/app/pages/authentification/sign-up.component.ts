@@ -52,13 +52,17 @@ export class SignUpComponent  {
         if (this.form_signup.invalid) {
             return;
         }
+        
+        var formData: any = new FormData();
+    	formData.append("nom", this.form_signup.get('nom').value);
+    	formData.append("prenom", this.form_signup.get('prenom').value);
+    	formData.append("email", this.form_signup.get('nom').value);
+    	formData.append("telephone", this.form_signup.get('telephone').value);
+    	formData.append("password", this.form_signup.get('password').value);
 
-        const formValue = this.form_signup.value;
+  		this.authService.postItem('http://localhost:8888/SECURITY-SERVICE/register',formData).subscribe(
 
-        const body=JSON.stringify(formValue);
-
-  		this.authService.postItem('http://localhost:8081/create',body).subscribe(
-        val => {
+        (response) => {
              Swal.fire( {icon: 'success',
                     title: 'Good job !',
                     text: 'Check your email box !',
@@ -66,19 +70,22 @@ export class SignUpComponent  {
   
                  });
 
-        function GoRegister(){ this.router.navigate(['/register']);}
+           
 
-        setTimeout(GoRegister, 2000);
+                 
+    	function GoRegister(){ this.router.navigate(['/login']);}
+
+    	setTimeout(GoRegister, 2000);
 
 
-        },response => {
+        },(error) => {
 
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: JSON.stringify(response.error.error)});
-         
+            text: error.status.toString()+" : "+error.statusText});
         });
+
   
 	}
 }

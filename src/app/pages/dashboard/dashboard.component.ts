@@ -26,12 +26,24 @@ export class DashboardComponent implements OnInit{
         this.id = +params.get('id');
 
         this.loaded = false;
-        this.dashboardService.getItem('http://localhost:8081/solde/'+this.id).subscribe(
-        solde=> {
-         // this.solde =...;
-         this.loaded = true;
-        }, response=>{ });
-   
+        
+        this.dashboardService.getItem('http://localhost:8888/COMPTE-SERVICE/solde/'+this.id).subscribe(
+         (response) => { 
+
+         console.log(response);
+
+         this.loaded=true;
+            
+
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
+
+
     });
 
     }

@@ -40,13 +40,30 @@ export class SignInComponent  {
             return;
         }
 
-        const formValue = this.form_signin.value;
+        var formData: any = new FormData();
+    	formData.append("username", this.form_signin.get('username').value);
+    	formData.append("password", this.form_signin.get('password').value);
 
-        const body=JSON.stringify(formValue);
 
-        console.log(body);
+       	this.authService.postItem('http://localhost:8888/SECURITY-SERVICE/register',formData).subscribe(
 
-        this.router.navigate(['dashboard',this.id]);
+        (response) => {
+             Swal.fire( {icon: 'success',
+                    title: 'Good job !',
+                    text: 'You are logged in !',
+                    showConfirmButton: false
+  
+                 });
+        
+           // localStorage.setItem('token', ...]);
+
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
 
     }
 

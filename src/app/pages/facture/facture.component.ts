@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FactureService  } from '../../services/facture.service';
@@ -14,30 +15,46 @@ import { FactureService  } from '../../services/facture.service';
 
 export class FactureComponent implements OnInit{
 
-	items:any;
+	id:number;
 
 	loaded:boolean;
 
 	factureForm:FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private factureService : FactureService, private router:Router){}
+	constructor(private formBuilder: FormBuilder, private route:ActivatedRoute, private factureService : FactureService, private router:Router){}
 
 
     ngOnInit(){
 
-    this.getFactures();
-    this.initForm();
+    this.route.paramMap.subscribe(params => {
+
+        this.id = +params.get('id');
+
+        this.initForm();
+
+        this.loaded = false;
+        
+        this.factureService.getItem('http://localhost:8888/BILLING-SERVICE/full/'+this.id).subscribe(
+         (response) => { 
+
+         console.log(response);
+
+         this.loaded=true;
+            
+
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
+
+
+    });
     }
 
 
-    getFactures(){
-
-   // this.loaded=false;
-
-    this.loaded=true;
-
-
-    }
 
     get f()
 
@@ -154,14 +171,34 @@ export class FactureComponent implements OnInit{
 
         const formValue = this.factureForm.value;
 
-
         formValue['montant']=Number.parseFloat(formValue['montant']);
         formValue['date']=new Date(formValue['date']);
 
+		var formData: any = new FormData();
+    	formData.append("email", this.factureForm.get('email').value);
+    	formData.append("montant", this.factureForm.get('montant').value);
+    	formData.append("date", this.factureForm.get('date').value);
 
-        const body=JSON.stringify(formValue);
 
-  		console.log(body);
+    	this.factureService.postItem('http://localhost:8888/BILLING-SERVICE/create',formData).subscribe(
+
+        (response) => {
+             Swal.fire( {icon: 'success',
+                    title: 'Good job !',
+                    text: 'Facture created !',
+                    showConfirmButton: false
+  
+                 });
+        
+           console.log(response);
+
+        },(error) => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.status.toString()+" : "+error.statusText});
+        });
 
 	}
       

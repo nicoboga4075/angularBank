@@ -5,6 +5,7 @@ const httpOptions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
+       //  'Authorization':localStorage.getItem('token'),
       
     }
   )
@@ -19,8 +20,8 @@ export class VirementService {
 
   constructor(private http: HttpClient) { }
 
-  postItem(url:string,body:string){
-    return this.http.post(url,body,httpOptions);
+  postItem(url:string,formData:FormData){
+    return this.http.post(url,formData,httpOptions);
   }
 
 
