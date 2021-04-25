@@ -19,13 +19,35 @@ export class FactureService {
 
   constructor(private http: HttpClient) { } 
 
-  getItem(url: string) {
-    return this.http.get(url, httpOptions);
+  getBill(id){
+
+  
   }
 
-  postItem(url:string,formData:FormData){
-    return this.http.post(url,formData,httpOptions);
+    
+   supprimer(id){
+
+       
   }
 
+   
+    getcreatedBills() {
 
+       
+    }
+
+   
+   getReceivedBills(){
+
+    }
+
+    PayBill(){
+
+    }
+
+
+
+   create(){
+
+  }
 }
