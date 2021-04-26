@@ -18,7 +18,8 @@ export class FactureComponent implements OnInit{
 	loaded:boolean;
 
 	factureForm:FormGroup;
-	factures:any;
+	factures_created:any;
+	factures_received:any;
 	buttonChange="Factures Créées";
 
 
@@ -32,7 +33,7 @@ export class FactureComponent implements OnInit{
 
 	loadCreatedBills(){
 		this.billService.getcreatedBills().subscribe(resp=>{   
-            this.factures=resp;
+            this.factures_created=resp;
 			this.buttonChange="Factures Reçues";
 			this.loaded=true;
         },error=>{
@@ -42,7 +43,7 @@ export class FactureComponent implements OnInit{
 
 	loadReceivedBills(){
 		this.billService.getReceivedBills().subscribe(resp=>{   
-            this.factures=resp;
+            this.factures_received=resp;
 			this.buttonChange="Factures Créées";
             this.loaded=true;
         },error=>{
@@ -52,30 +53,18 @@ export class FactureComponent implements OnInit{
 
 	load()
 	{ 
-	  if (this.buttonCreated())
+	  if (this.buttonChange=="Factures Créées")
 	  {  this.loadCreatedBills(); }
 
-	  if (this.buttonReceived())
+	  if (this.buttonChange=="Factures Reçues")
 	  { this.loadReceivedBills();}
-
-	
 	}
 
-	buttonCreated(){
-
-		return this.buttonChange==="Factures Créées";
-	
-	}
-	
-	buttonReceived(){
-
-		return this.buttonChange==="Factures Reçues";
-	}
 
 
 	supprimerBill(id){
 		this.billService.supprimer(id).subscribe(resp=>{   
-            this.factures=resp;
+            this.factures_created=resp;
 			this.loadCreatedBills();
         },error=>{
             
@@ -84,7 +73,7 @@ export class FactureComponent implements OnInit{
 
 	payBill(id){
 		this.billService.PayBill(id).subscribe(resp=>{   
-            this.factures=resp;
+            this.factures_received=resp;
 			this.loadReceivedBills();
         },error=>{
             

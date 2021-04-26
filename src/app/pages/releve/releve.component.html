@@ -62,8 +62,6 @@
                         <th scope="col"  style="border-bottom-color: #2b3170">Emetteur<span style="padding:5px"></span></th>
                       </tr>
 
-                      <br>
-
                       <tr style="background-color: #e6e6e6;">
                         <th scope="col"  style="border-bottom-color: #2b3170">Date<span style="padding:5px"></span></th>
                         <th scope="col"  style="border-bottom-color: #2b3170">Type de virement<span style="padding:5px"></span></th>
@@ -80,20 +78,19 @@
                                      <td style="color:black">{{virementFrom?.date}}</td>
                                      <td style="color:black">{{virementFrom?.type}}</td>
                                      <td style="color:black">{{virementFrom?.montant}}</td>
-                                     <td style="color:black">{{virementTo?.compteFrom}}</td>
+                                     <td style="color:black">{{virementFrom?.clientFrom}}</td>
                                    
                  
                                  </tr>
 
-                                 <br>
-             
+                            
                                  
                                  <tr *ngFor="let virementTo of compte.virementsTo">
              
                                    <td style="color:black">{{virementTo?.date}}</td>
                                    <td style="color:black">{{virementTo?.type}}</td>
                                    <td style="color:black">{{virementTo?.montant}}</td>
-                                   <td style="color:black">{{virementTo?.compteTo}}</td>
+                                   <td style="color:black">{{virementTo?.clientTo}}</td>
                                </tr>
           
                         </tbody>

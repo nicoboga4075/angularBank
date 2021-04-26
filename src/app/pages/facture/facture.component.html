@@ -62,6 +62,7 @@
                       <tr style="background-color: #e6e6e6;">
                         <th scope="col"  style="border-bottom-color: #2b3170">Date<span style="padding:5px"></span></th>
                         <th scope="col"  style="border-bottom-color: #2b3170">Montant<span style="padding:5px"></span></th>
+                        <th scope="col"  style="border-bottom-color: #2b3170">Action<span style="padding:5px"></span></th>
                      
                       </tr>
 
@@ -69,7 +70,7 @@
 
                     <tbody>
 
-                      <tr *ngFor="let facture of factures" *ngIf="buttonCreated()">
+                      <tr *ngFor="let facture of factures_received" >
 
                         <td style="color:#2b3170">{{facture?.date}}</td> 
                         <td style="color:#2b3170">{{facture?.montant}}</td>
@@ -78,7 +79,7 @@
                       
                       </tr>
 
-                      <tr *ngFor="let facture of factures" *ngIf="buttonReceived()" >
+                      <tr  *ngFor="let facture of factures_created"  >
 
                         <td style="color:#2b3170">{{facture?.date}}</td>
                         <td style="color:#2b3170">{{facture?.montant}}</td>
