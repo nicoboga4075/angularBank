@@ -44,8 +44,6 @@ export class VirementComponent implements OnInit{
     }
 
 
-    
-
     get f()
 
   	{

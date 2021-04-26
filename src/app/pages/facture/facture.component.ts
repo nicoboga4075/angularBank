@@ -19,36 +19,59 @@ export class FactureComponent implements OnInit{
 
 	factureForm:FormGroup;
 	factures:any;
-	buttonChange="Factures Créé"
-	//facturesEnvoye:any;
+	buttonChange="Factures Créées";
+
 
 	constructor(private formBuilder: FormBuilder,  private billService :FactureService, private router:Router){}
 
 
     ngOnInit(){
 		this.loaded=false;
-		this.loadCreatedBills();
+		this.loadReceivedBills();
     }
 
 	loadCreatedBills(){
 		this.billService.getcreatedBills().subscribe(resp=>{   
             this.factures=resp;
-			this.buttonChange="Factures Reçu"
+			this.buttonChange="Factures Reçues";
 			this.loaded=true;
         },error=>{
             
         });
 	}
 
-	loadReceavedBills(){
+	loadReceivedBills(){
 		this.billService.getReceivedBills().subscribe(resp=>{   
             this.factures=resp;
-			this.buttonChange="Factures Créé"
+			this.buttonChange="Factures Créées";
             this.loaded=true;
         },error=>{
             
         });
 	}
+
+	load()
+	{ 
+	  if (this.buttonCreated())
+	  {  this.loadCreatedBills(); }
+
+	  if (this.buttonReceived())
+	  { this.loadReceivedBills();}
+
+	
+	}
+
+	buttonCreated(){
+
+		return this.buttonChange==="Factures Créées";
+	
+	}
+	
+	buttonReceived(){
+
+		return this.buttonChange==="Factures Reçues";
+	}
+
 
 	supprimerBill(id){
 		this.billService.supprimer(id).subscribe(resp=>{   
@@ -62,7 +85,7 @@ export class FactureComponent implements OnInit{
 	payBill(id){
 		this.billService.PayBill(id).subscribe(resp=>{   
             this.factures=resp;
-			this.loadReceavedBills();
+			this.loadReceivedBills();
         },error=>{
             
         });
@@ -204,10 +227,6 @@ export class FactureComponent implements OnInit{
                 text: error.status.toString()+" : "+error.statusText});
         });
 
-		
-
-
-    
 
 	}
       
