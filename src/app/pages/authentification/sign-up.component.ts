@@ -44,14 +44,11 @@ export class SignUpComponent  {
 
   	}
 
-
+   GoRegister(){ this.router.navigate(['/login']);}
 
     register() {
 
 
-        if (this.form_signup.invalid) {
-            return;
-        }
         
         var formData: any = new FormData();
     	formData.append("nom", this.form_signup.get('nom').value);
@@ -64,30 +61,29 @@ export class SignUpComponent  {
 
                 (response) => {
                     Swal.fire( {icon: 'success',
-                            title: 'Good job !',
-                            text: 'Check your email box !',
-                            showConfirmButton: false
-  
-        });
+                        title: 'Good job !',
+                        text: 'Check your email box !',
+                        showConfirmButton: false
 
-           
+                    });
 
-                 
-    	function GoRegister(){ this.router.navigate(['/login']);}
+        	   setTimeout(this.GoRegister, 5000);
 
-    	setTimeout(GoRegister, 2000);
+            },(error) => {
 
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error
+                });
 
-        },(error) => {
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.status.toString()+" : "+error.statusText});
-        });
+            }
+        );
 
   
 	}
+
+    
 }
 
 

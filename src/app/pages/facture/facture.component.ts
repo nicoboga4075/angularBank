@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FactureService  } from '../../services/facture.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -23,27 +24,38 @@ export class FactureComponent implements OnInit{
 	buttonChange="Factures Créées";
 
 
-	constructor(private formBuilder: FormBuilder,  private billService :FactureService, private router:Router){}
+	constructor(private formBuilder: FormBuilder, private userService:UserService, private billService :FactureService, private router:Router, private datePipe: DatePipe){
+    if(this.userService.getAuthenticatedUser()==null){
+          this.router.navigate(["/login"]);
+        }
+  }
 
 
     ngOnInit(){
-		this.loaded=false;
-		this.loadReceivedBills();
+  		this.loaded=false;
+      this.initForm();
+  		this.loadReceivedBills();
+
     }
 
 	loadCreatedBills(){
-		this.billService.getcreatedBills().subscribe(resp=>{   
+		this.billService.getcreatedBills().subscribe(resp=>{  
+          this.factures_received=null; 
             this.factures_created=resp;
+            console.log(this.factures_created);
 			this.buttonChange="Factures Reçues";
 			this.loaded=true;
         },error=>{
             
-        });
+    });
 	}
 
 	loadReceivedBills(){
+
 		this.billService.getReceivedBills().subscribe(resp=>{   
+            this.factures_created=null;
             this.factures_received=resp;
+            console.log(this.factures_received);
 			this.buttonChange="Factures Créées";
             this.loaded=true;
         },error=>{
@@ -65,7 +77,7 @@ export class FactureComponent implements OnInit{
 	supprimerBill(id){
 		this.billService.supprimer(id).subscribe(resp=>{   
             this.factures_created=resp;
-			this.loadCreatedBills();
+			   window.location.reload();
         },error=>{
             
         });
@@ -74,7 +86,7 @@ export class FactureComponent implements OnInit{
 	payBill(id){
 		this.billService.PayBill(id).subscribe(resp=>{   
             this.factures_received=resp;
-			this.loadReceivedBills();
+			window.location.reload();
         },error=>{
             
         });
@@ -203,11 +215,10 @@ export class FactureComponent implements OnInit{
 		var formData: any = new FormData();
     	formData.append("email", this.factureForm.get('email').value);
     	formData.append("montant", this.factureForm.get('montant').value);
-    	formData.append("date", this.factureForm.get('date').value);
+    	formData.append("date", this.datePipe.transform(this.factureForm.get('date').value, 'yyyy-MM-dd'));
 
 		this.billService.create(formData).subscribe(resp=>{
-            
-            this.loadCreatedBills();
+            window.location.reload();
             
         },error=>{
             Swal.fire({

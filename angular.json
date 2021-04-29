@@ -59,6 +59,7 @@
           "configurations": {
             "production": {
               "browserTarget": "pd-free-angularcli:build:production"
+              //"proxyConfig": "src/proxy.conf.json"
             }
           }
         },

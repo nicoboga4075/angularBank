@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { VirementService  } from '../../services/virement.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'virement-cmp',
@@ -21,25 +22,29 @@ export class VirementComponent implements OnInit{
 
 	loaded:boolean;
 
-	constructor(private formBuilder: FormBuilder, private compteService:VirementService, private userService : UserService,private router:Router){}
+	constructor(private formBuilder: FormBuilder, private compteService:VirementService, private userService : UserService,private router:Router, private datePipe: DatePipe){
+      if(this.userService.getAuthenticatedUser()==null){
+          this.router.navigate(["/login"]);
+      }
+  }
 
 
     ngOnInit(){
 
-	this.loaded=false;
+    	this.loaded=false;
 
-	this.compteService.getCompte().subscribe(
+    	this.compteService.getCompte().subscribe(
 
-		resp=>{   
-			this.compte=resp;
-            this.loaded=true;
-        },error=>{
+    		resp=>{   
+    			this.compte=resp;
+                this.loaded=true;
+            },error=>{
 
-            
-        });
+                
+            });
 
-    
-    this.initForm();
+      
+      this.initForm();
 
     }
 
@@ -265,28 +270,26 @@ export class VirementComponent implements OnInit{
 	onSubmitForm()
 
 	{	
-		if (!this.virementForm.invalid)
-
-		{ return ;}
+		
 		
         const formValue = this.virementForm.value;
-        
+        console.log(this.datePipe.transform(this.virementForm.get('date').value, 'yyyy-MM-dd'));
+
 
         formValue['montant']=Number.parseFloat(formValue['montant']);
         formValue['date']=new Date(formValue['date']);
 
-
-        var formData: any = new FormData();
+      var formData: any = new FormData();
     	formData.append("type", this.virementForm.get('type').value);
     	formData.append("email", this.virementForm.get('email').value);
     	formData.append("question", this.virementForm.get('question').value);
     	formData.append("response", this.virementForm.get('response').value);
     	formData.append("montant", this.virementForm.get('montant').value);
-    	formData.append("date", this.virementForm.get('date').value);
+    	formData.append("date", this.datePipe.transform(this.virementForm.get('date').value, 'yyyy-MM-dd'));
 
 		this.compteService.virement(formData).subscribe(resp=>{
             this.response=resp;
-            this.router.navigate(["/dashboard"]);
+            window.location.reload();
             
         },error=>{
             Swal.fire({

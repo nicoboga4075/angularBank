@@ -10,14 +10,15 @@ import { UserService } from './user.service';
 export class FactureService {
 
     //url du backend
-    host:string="http://localhost:8888/BILLING-SERVICE";
+    //host:string="http://localhost:8888/BILLING-SERVICE";
+    host:string="http://localhost:8082";
     constructor(private http: HttpClient, private userService: UserService) { }
   
 
   getBill(id){
 
     let headers = new HttpHeaders()
-    .append('Authorization',this.userService.token);
+    .append('Authorization',this.userService.getToken());
     return this.http.get(this.host+"/bills/full/"+id,{
       headers:headers     
     });
@@ -28,8 +29,8 @@ export class FactureService {
    supprimer(id){
 
     let headers = new HttpHeaders()
-    .append('Authorization',this.userService.token);
-    return this.http.delete(this.host+"/bills/suppprimer/"+id,{headers:headers});
+    .append('Authorization',this.userService.getToken());
+    return this.http.delete(this.host+"/bills/supprimer/"+id,{headers:headers});
 
        
   }
@@ -38,8 +39,8 @@ export class FactureService {
     getcreatedBills() {
 
       let headers = new HttpHeaders()
-      .append('Authorization',this.userService.token);
-      return this.http.get(this.host+"/getCreatedBills/"+this.userService.userAuthenticated.id,{
+      .append('Authorization',this.userService.getToken());
+      return this.http.get(this.host+"/getCreatedBills/"+this.userService.getAuthenticatedUser().id,{
         headers:headers     
       });
 
@@ -48,10 +49,10 @@ export class FactureService {
 
    
    getReceivedBills(){
-
+    console.log(this.host+"/getReceivedBills/"+this.userService.getAuthenticatedUser().id);
     let headers = new HttpHeaders()
-    .append('Authorization',this.userService.token);
-    return this.http.get(this.host+"/getReceivedBills/"+this.userService.userAuthenticated.id,{
+    .append('Authorization',this.userService.getToken());
+    return this.http.get(this.host+"/getReceivedBills/"+this.userService.getAuthenticatedUser().id,{
       headers:headers     
     });
 
@@ -62,7 +63,7 @@ export class FactureService {
     PayBill(id){
 
       let headers = new HttpHeaders()
-      .append('Authorization',this.userService.token);
+      .append('Authorization',this.userService.getToken());
       return this.http.get(this.host+"/payBill/"+id,{
         headers:headers     
       });
@@ -75,7 +76,7 @@ export class FactureService {
    create(formData){
 
     let headers = new HttpHeaders()
-    .append('Authorization',this.userService.token);
+    .append('Authorization',this.userService.getToken());
     
     return this.http.post( this.host+"/create", formData,{
       headers:headers     

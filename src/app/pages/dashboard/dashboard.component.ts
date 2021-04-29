@@ -17,15 +17,20 @@ export class DashboardComponent implements OnInit{
     solde:any;
     loaded:boolean;
 
-    constructor(private fb:FormBuilder, private userService:UserService,private compteService:VirementService,  private router: Router) {}
+    constructor(private fb:FormBuilder, private userService:UserService,private compteService:VirementService,  private router: Router) {
+        if(this.userService.getAuthenticatedUser()==null){
+          this.router.navigate(["/login"]);
+        }
+    }
 
     ngOnInit(){
         this.loaded=false;
         this.compteService.getSolde().subscribe(resp=>{   
             this.solde=resp;
+            console.log(resp);
             this.loaded=true;
         },error=>{
-            
+            console.log("error solde");
         });
     }
 

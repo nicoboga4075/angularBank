@@ -13,16 +13,16 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 export class SignInComponent  {
 
-	id=1;
-
+	
 	form_signin:FormGroup;
 
     constructor(private fb:FormBuilder, private userService:UserService, private router: Router) {
 
         this.form_signin= this.fb.group({
             username: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-            password: ['',[Validators.required,Validators.minLength(10)]],
+            password: ['',[Validators.required,Validators.minLength(5)]],
         });
+        
     }
 
 
@@ -44,12 +44,14 @@ export class SignInComponent  {
     	formData.append("password", this.form_signin.get('password').value);
 
         this.userService.login(formData).subscribe(resp=>{
+            console.log(resp);
             let jwtToken = resp.headers.get("Authorization");
             console.log(jwtToken);
             this.userService.saveToken(jwtToken);
             this.userService.isAuthenticated=true;
+            console.log(this.userService.isAuthenticated);
             this.router.navigate(["/dashboard"]);
-            
+                   
         },error=>{
             Swal.fire({
                 icon: 'error',

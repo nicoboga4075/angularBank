@@ -9,7 +9,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UserService {
 
   //url du backend
-  host:string="http://localhost:8888/SECURITY-SERVICE";
+  //host:string="http://localhost:8888/SECURITY-SERVICE";
+  host:string="http://localhost:8083";
  
 
   //savoir si le user est authentifié
@@ -89,12 +90,25 @@ export class UserService {
            
   }
 
+  getToken(){
+    return localStorage.getItem("token");
+  }
+  
   getUser(login:string){
-    this.http.get(this.host+"/getUser?email="+login).subscribe(data=>{
+    let headers = new HttpHeaders()
+      .append('Authorization',this.token);
+    this.http.get(this.host+"/getUser?email="+login,{
+        headers:headers     
+      }).subscribe(data=>{
       this.userAuthenticated=data;
-      //console.log(this.userAuthenticated); 
+      localStorage.setItem("user",JSON.stringify(data));
+      console.log(this.userAuthenticated); 
     },
       error=>console.log(error));
+  }
+
+  getAuthenticatedUser(){
+    return JSON.parse(localStorage.getItem("user"));
   }
 
 
@@ -128,8 +142,9 @@ export class UserService {
   }
 
   //pour la deconnexion
-  removeTokenFromLocalStorage(){
+  logout(){
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.userAuthenticated=undefined;
     this.isAuthenticated=false;
     this.token=undefined;

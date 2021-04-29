@@ -68,12 +68,12 @@
 
                     </thead>
 
-                    <tbody>
+                    <tbody *ngIf="compte">
                     
-                    <tr *ngFor="let virementFrom of compte.virementsFrom">
+                    <tr *ngFor="let virementFrom of compte.response.virementsFrom">
 
-                      <td style="color:black">{{virementFrom?.date}}</td>
-                      <td style="color:black">{{virementFrom?.type}}</td>
+                      <td style="color:black">{{virementFrom?.dateVirement | date}}</td>
+                      <td style="color:black">{{virementFrom?.typeVirement}}</td>
                       <td style="color:black">{{virementFrom?.montant}}</td>
                      
                     
